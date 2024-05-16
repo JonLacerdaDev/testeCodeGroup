@@ -4,13 +4,15 @@ import { usePlanets } from '../contexts/PlanetsContext';
 
 const SearchPage = () => {
   const { term } = useParams<{ term: string }>();
-  const { planetNames } = usePlanets();
+  const { planets } = usePlanets();
   const [searchResults, setSearchResults] = useState<string[]>([]);
 
   useEffect(() => {
-    const filteredResults = planetNames.filter(name => name.toLowerCase().includes(term?.toLowerCase()));
+    const filteredResults = planets
+      .filter(planet => planet.name.toLowerCase().includes(term?.toLowerCase()))
+      .map(planet => planet.name);
     setSearchResults(filteredResults);
-  }, [term, planetNames]);
+  }, [term, planets]);
 
   return (
     <div>

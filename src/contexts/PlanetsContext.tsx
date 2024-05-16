@@ -12,15 +12,11 @@ interface Planet {
 
 interface PlanetsContextType {
   planets: Planet[];
-  planetNames: string[]; 
-  populations: string[]; 
   fetchPlanets: () => void;
 }
 
 const PlanetsContext = createContext<PlanetsContextType>({
   planets: [],
-  planetNames: [],
-  populations: [],
   fetchPlanets: () => {},
 });
 
@@ -32,8 +28,6 @@ interface PlanetsProviderProps {
 
 export const PlanetsProvider: React.FC<PlanetsProviderProps> = ({ children }) => {
   const [planets, setPlanets] = useState<Planet[]>([]);
-  const [planetNames, setPlanetNames] = useState<string[]>([]); 
-  const [populations, setPopulations] = useState<string[]>([]); 
   const [isDataFetched, setIsDataFetched] = useState<boolean>(false);
 
   const fetchPlanets = async () => {
@@ -41,15 +35,8 @@ export const PlanetsProvider: React.FC<PlanetsProviderProps> = ({ children }) =>
       const endpoint = getSWAPIEndpoint(SWAPIRoutes.Planets);
       const response = await fetch(endpoint);
       const data = await response.json();
-      const fetchedPlanets = data.results;
       
-      const planetNamesArray = fetchedPlanets.map((planet: Planet) => planet.name);
-      const populationsArray = fetchedPlanets.map((planet: Planet) => planet.population);
-
-      setPlanets(fetchedPlanets);
-      setPlanetNames(planetNamesArray);
-      setPopulations(populationsArray);
-
+      setPlanets(data.results);
       setIsDataFetched(true);
     } catch (error) {
       console.error('Error fetching planets:', error);
@@ -63,7 +50,7 @@ export const PlanetsProvider: React.FC<PlanetsProviderProps> = ({ children }) =>
   }, []); 
 
   return (
-    <PlanetsContext.Provider value={{ planets, planetNames, populations, fetchPlanets }}>
+    <PlanetsContext.Provider value={{ planets, fetchPlanets }}>
       {children}
     </PlanetsContext.Provider>
   );
