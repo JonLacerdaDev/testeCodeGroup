@@ -12,8 +12,8 @@ interface Planet {
 
 interface PlanetsContextType {
   planets: Planet[];
-  planetNames: string[]; // Lista de nomes de planetas
-  populations: string[]; // Lista de populações
+  planetNames: string[]; 
+  populations: string[]; 
   fetchPlanets: () => void;
 }
 
@@ -32,8 +32,8 @@ interface PlanetsProviderProps {
 
 export const PlanetsProvider: React.FC<PlanetsProviderProps> = ({ children }) => {
   const [planets, setPlanets] = useState<Planet[]>([]);
-  const [planetNames, setPlanetNames] = useState<string[]>([]); // Estado para armazenar os nomes dos planetas
-  const [populations, setPopulations] = useState<string[]>([]); // Estado para armazenar as populações dos planetas
+  const [planetNames, setPlanetNames] = useState<string[]>([]); 
+  const [populations, setPopulations] = useState<string[]>([]); 
   const [isDataFetched, setIsDataFetched] = useState<boolean>(false);
 
   const fetchPlanets = async () => {
@@ -43,7 +43,6 @@ export const PlanetsProvider: React.FC<PlanetsProviderProps> = ({ children }) =>
       const data = await response.json();
       const fetchedPlanets = data.results;
       
-      // Extrair os nomes dos planetas e as populações
       const planetNamesArray = fetchedPlanets.map((planet: Planet) => planet.name);
       const populationsArray = fetchedPlanets.map((planet: Planet) => planet.population);
 
