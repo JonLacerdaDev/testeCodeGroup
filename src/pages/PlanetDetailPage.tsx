@@ -5,7 +5,10 @@ import { usePlanets } from '../contexts/PlanetsContext';
 const PlanetDetailPage = () => {
   const { urlPlanetName } = useParams<{ urlPlanetName: string }>();
   const { planets } = usePlanets();
-  const [planet, setPlanet] = useState<any>(null);
+  const [ planet, setPlanet ] = useState<any>(null);
+
+
+  console.log(planets)
 
   useEffect(() => {
     const planetNameFromURL = urlPlanetName?.toLowerCase();
@@ -14,7 +17,6 @@ const PlanetDetailPage = () => {
     }
     );
 
-    console.log(matchedPlanet)
     if (matchedPlanet) {
       setPlanet(matchedPlanet);
     }
