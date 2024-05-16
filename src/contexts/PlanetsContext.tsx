@@ -12,11 +12,15 @@ interface Planet {
 
 interface PlanetsContextType {
   planets: Planet[];
+  planetNames: string[]; // Lista de nomes de planetas
+  populations: string[]; // Lista de populações
   fetchPlanets: () => void;
 }
 
 const PlanetsContext = createContext<PlanetsContextType>({
   planets: [],
+  planetNames: [],
+  populations: [],
   fetchPlanets: () => {},
 });
 
@@ -28,6 +32,8 @@ interface PlanetsProviderProps {
 
 export const PlanetsProvider: React.FC<PlanetsProviderProps> = ({ children }) => {
   const [planets, setPlanets] = useState<Planet[]>([]);
+  const [planetNames, setPlanetNames] = useState<string[]>([]); // Estado para armazenar os nomes dos planetas
+  const [populations, setPopulations] = useState<string[]>([]); // Estado para armazenar as populações dos planetas
   const [isDataFetched, setIsDataFetched] = useState<boolean>(false);
 
   const fetchPlanets = async () => {
@@ -35,7 +41,16 @@ export const PlanetsProvider: React.FC<PlanetsProviderProps> = ({ children }) =>
       const endpoint = getSWAPIEndpoint(SWAPIRoutes.Planets);
       const response = await fetch(endpoint);
       const data = await response.json();
-      setPlanets(data.results);
+      const fetchedPlanets = data.results;
+      
+      // Extrair os nomes dos planetas e as populações
+      const planetNamesArray = fetchedPlanets.map((planet: Planet) => planet.name);
+      const populationsArray = fetchedPlanets.map((planet: Planet) => planet.population);
+
+      setPlanets(fetchedPlanets);
+      setPlanetNames(planetNamesArray);
+      setPopulations(populationsArray);
+
       setIsDataFetched(true);
     } catch (error) {
       console.error('Error fetching planets:', error);
@@ -46,10 +61,10 @@ export const PlanetsProvider: React.FC<PlanetsProviderProps> = ({ children }) =>
     if (!isDataFetched) {
       fetchPlanets();
     }
-  }, []);
+  }, []); 
 
   return (
-    <PlanetsContext.Provider value={{ planets, fetchPlanets }}>
+    <PlanetsContext.Provider value={{ planets, planetNames, populations, fetchPlanets }}>
       {children}
     </PlanetsContext.Provider>
   );
