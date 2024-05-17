@@ -1,30 +1,26 @@
-import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { usePlanets } from '../contexts/PlanetsContext';
 import { useFilms } from '../contexts/FilmesContext';
 import { usePeople } from '../contexts/PeopleContext'; 
+import PlanetImage from '../components/PlanetImage/PlanetImage';
 
 const PlanetDetailPage = () => {
   const { urlPlanetName } = useParams<{ urlPlanetName: string }>();
   const { planets } = usePlanets();
-  const  films  = useFilms();
-  const { people } = usePeople(); 
+  const films = useFilms();
+  const { people } = usePeople();
   const [planet, setPlanet] = useState<any>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [newPlanetName, setNewPlanetName] = useState<string>('');
-  const [planetImage, setPlanetImage] = useState<string>('');
 
   useEffect(() => {
-    const planetNameFromURL = urlPlanetName?.toLowerCase();
     const matchedPlanet = planets.find((planet: any) => {
-      return planet.name.toLowerCase().includes(planetNameFromURL);
+      return planet.name.toLowerCase().includes(urlPlanetName?.toLowerCase());
     });
 
     if (matchedPlanet) {
       setPlanet(matchedPlanet);
-      const planetIndex = planets.findIndex((p: any) => p.name === matchedPlanet.name) - 1;
-      const planetImageLink = `https://cryptospro.com.br/planetas/planeta_${('0000' + planetIndex).slice(-4)}_${matchedPlanet.name.toLowerCase()}.png`;
-      setPlanetImage(planetImageLink);
     }
   }, [urlPlanetName, planets]);
 
@@ -49,9 +45,8 @@ const PlanetDetailPage = () => {
 
   return (
     <div>
-      <Link to="/">Home</Link>
       <h1>Planet Detail Page</h1>
-      <img src={planetImage} alt={planet.name} />
+      <PlanetImage planetName={planet.name} />
       <h2 onClick={handleTitleClick} style={{ cursor: 'pointer' }}>
         {isEditing ? (
           <input
