@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import './Parallax.css'; 
 
-import { ParallaxContainer, ParallaxLayer } from './ParallaxStyle'; // Importe os estilos
+import { ParallaxContainer, ParallaxLayer } from './ParallaxStyle'; 
 
 import imageParallax01 from '../../assets/imageParallax01.png';
 import imageParallax02 from '../../assets/imageParallax02.png';
@@ -45,7 +45,6 @@ const Parallax = () => {
 
   return (
     <ParallaxContainer ref={containerRef}>
-      {/* Adicione as imagens com a classe parallax-layer */}
       <ParallaxLayer src={imageParallax01} alt="Star Wars Background" />
       <ParallaxLayer src={imageParallax02} alt="Star Wars Background"  className="parallax-layer" data-depth="0.1" />
       <ParallaxLayer src={imageParallax03} alt="Star Wars Background"  className="parallax-layer" data-depth="0.2" />
