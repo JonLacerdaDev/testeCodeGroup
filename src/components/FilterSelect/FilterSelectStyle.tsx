@@ -18,6 +18,9 @@ export const FilterContainer = styled.div`
     background-repeat: no-repeat;
     background-position: left 8px;
     outline: none;
+    white-space: nowrap;                  
+    overflow: hidden; 
+    text-overflow: ellipsis;
 
     option {
       color: #000;

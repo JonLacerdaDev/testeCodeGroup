@@ -12,7 +12,7 @@ interface Props {
   placeholder: string;
 }
 
-const FilterSelect: React.FC<Props> = ({ value, onChange, options, placeholder }) => {
+const FilterSelect = ({ value, onChange, options, placeholder }: Props) => {
   return (
     <FilterContainer>
       <select value={value} onChange={onChange}>

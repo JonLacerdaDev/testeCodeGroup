@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ImageForm from '../../assets/image-form.png';
 import ImageSpaceship from '../../assets/spaceship.png';
 import IcoFilter from '../../assets/ico-filter.png';
-
 import FilterSelect from '../../components/FilterSelect/FilterSelect';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 import { 
   FormContainer, 
@@ -30,13 +31,29 @@ interface Props {
   onSubmit: (searchTerm: string) => void;
 }
 
-const SearchForm: React.FC<Props> = ({ planets, onSubmit }) => {
+const SearchForm = ({ planets, onSubmit }: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [selectedPlanet, setSelectedPlanet] = useState<string>('');
+  const [selectedPopulation, setSelectedPopulation] = useState<string>('');
   const [suggestion, setSuggestion] = useState<string | null>(null);
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(searchTerm);
+    if (!searchTerm && !selectedPlanet) {
+      console.log(toast)
+      toast.error('Please type something in the field or select a planet', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark"
+      });
+    } else {
+      onSubmit(searchTerm || selectedPlanet);
+    }
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,9 +77,23 @@ const SearchForm: React.FC<Props> = ({ planets, onSubmit }) => {
     }
   };
 
+  const handlePopulationChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const population = event.target.value;
+    setSelectedPopulation(population);
+  };
+
   const filteredPlanets = planets.filter((planet) =>
-    planet.name.toLowerCase().includes(searchTerm.toLowerCase())
+    planet.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    (selectedPopulation === '' || (selectedPopulation === 'unknown' && planet.population === 'unknown') || (selectedPopulation !== 'unknown' && planet.population !== 'unknown'))
   );
+
+  const populationOptions = [
+    ...new Set(planets.map(planet => planet.population === 'unknown' ? 'unknown' : planet.population).filter(population => population !== 'unknown')),
+    'unknown'
+  ].map(population => ({
+    label: population === 'unknown' ? 'Unknown' : Number(population).toLocaleString(),
+    value: population
+  }));
 
   useEffect(() => {
     if (!searchTerm) {
@@ -110,26 +141,21 @@ const SearchForm: React.FC<Props> = ({ planets, onSubmit }) => {
           </FiltersTitle>
           <FiltersWrapper>
             <FilterSelect
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              options={[
-                { label: 'Name', value: '' },
-                ...filteredPlanets.map((planet) => ({ label: planet.name, value: planet.name })),
-              ]}
+              value={selectedPlanet}
+              onChange={(e) => setSelectedPlanet(e.target.value)}
+              options={filteredPlanets.map((planet) => ({ label: planet.name, value: planet.name }))}
               placeholder="Name"
             />
             <FilterSelect
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              options={[
-                { label: 'Population', value: '' },
-                ...filteredPlanets.map((planet) => ({ label: planet.population, value: planet.population })),
-              ]}
+              value={selectedPopulation}
+              onChange={handlePopulationChange}
+              options={populationOptions}
               placeholder="Population"
             />
           </FiltersWrapper>
         </FiltersContainer>
       </FormContent>
+      <ToastContainer />
     </FormContainer>
   );
 };

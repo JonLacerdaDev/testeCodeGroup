@@ -142,8 +142,10 @@ export const TabSuggestion = styled.span`
 export const FiltersContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 15px;
+  margin: 15px 0 0 0;
   gap: 20px;
+  width: 100%;
+  justify-content: end;
 `;
 
 export const FiltersTitle = styled.div`
