@@ -1,6 +1,6 @@
 import { BrowserRouter as Router,  Route, Routes} from 'react-router-dom';
 import Home from './pages/Home';
-import SearchPage from './pages/SearchPage';
+import SearchPage from './pages/SearchPage/SearchPage';
 import PlanetDetailPage from './pages/PlanetDetailPage';
 import Parallax from './components/Parallax/Parallax';
 import Header from './components/Header/Header';
