@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { usePlanets } from '../contexts/PlanetsContext';
-import { useFilms } from '../contexts/FilmesContext'; 
+import { useFilms } from '../contexts/FilmesContext';
+import { usePeople } from '../contexts/PeopleContext'; 
 
 const PlanetDetailPage = () => {
   const { urlPlanetName } = useParams<{ urlPlanetName: string }>();
   const { planets } = usePlanets();
-  const films = useFilms(); 
+  const  films  = useFilms();
+  const { people } = usePeople(); 
   const [planet, setPlanet] = useState<any>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [newPlanetName, setNewPlanetName] = useState<string>('');
@@ -20,7 +22,7 @@ const PlanetDetailPage = () => {
 
     if (matchedPlanet) {
       setPlanet(matchedPlanet);
-      const planetIndex = planets.findIndex((p: any) => p.name === matchedPlanet.name);
+      const planetIndex = planets.findIndex((p: any) => p.name === matchedPlanet.name) - 1;
       const planetImageLink = `https://cryptospro.com.br/planetas/planeta_${('0000' + planetIndex).slice(-4)}_${matchedPlanet.name.toLowerCase()}.png`;
       setPlanetImage(planetImageLink);
     }
@@ -47,7 +49,7 @@ const PlanetDetailPage = () => {
 
   return (
     <div>
-      <Link to='/'>home</Link>
+      <Link to="/">Home</Link>
       <h1>Planet Detail Page</h1>
       <img src={planetImage} alt={planet.name} />
       <h2 onClick={handleTitleClick} style={{ cursor: 'pointer' }}>
@@ -69,7 +71,6 @@ const PlanetDetailPage = () => {
       <p>Films:</p>
       <ul>
         {planet.films.map((film: string, index: number) => (
-          // Encontre o título do filme com base na URL usando o contexto dos filmes
           <li key={index}>{films.find((f: any) => f.url === film)?.title || 'Unknown'}</li>
         ))}
       </ul>
@@ -79,7 +80,7 @@ const PlanetDetailPage = () => {
           <p>Residents:</p>
           <ul>
             {planet.residents.map((resident: string, index: number) => (
-              <li key={index}>{resident}</li>
+              <li key={index}>{people.find((p: any) => p.url === resident)?.name || 'Unknown'}</li>
             ))}
           </ul>
         </div>
