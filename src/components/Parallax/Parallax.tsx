@@ -56,8 +56,8 @@ const Parallax = () => {
       <ParallaxLayer src={imageParallax09} alt="Star Wars Background"  className="parallax-layer" data-depth="0.8" />
       <ParallaxLayer src={imageParallax10} alt="Star Wars Background"  className="parallax-layer" data-depth="0.9" />
       <ParallaxLayer src={imageParallax11} alt="Star Wars Background"  className="parallax-layer" data-depth="1.0" />
-      <ParallaxLayer src={imageParallax12} alt="Star Wars Background"  className="parallax-layer" data-depth="2.0" />
-      <ParallaxLayer src={imageParallax13} alt="Star Wars Background"  className="parallax-layer" data-depth="3.0" />
+      <ParallaxLayer src={imageParallax12} alt="Star Wars Background"  className="parallax-layer" data-depth="1.1" />
+      <ParallaxLayer src={imageParallax13} alt="Star Wars Background"  className="parallax-layer" data-depth="1.2" />
 
     </ParallaxContainer>
   );

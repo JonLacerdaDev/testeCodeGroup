@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ParallaxContainer = styled.div`
   position: fixed;
   width: 100vw;
-  height: calc( 100vh - 75px);;
+  height: 100vh ;
   overflow: hidden;
   top: 0;
   left: 0;
