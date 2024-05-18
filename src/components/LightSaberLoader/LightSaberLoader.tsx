@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useLoading } from '../../contexts/LoadingContext';
 import './LightsaberLoader.css';
-import imageBG from '../../assets/imageParallax01.png';
+import imageBGDektop from '../../assets/imageParallax01.png';
+import imageBGMobile from '../../assets/bg-mobile.png';
 
 const LightsaberLoader = () => {
   const { loading, progress } = useLoading();
@@ -19,7 +20,8 @@ const LightsaberLoader = () => {
     <div id="loading-page" className={`${shouldHide ? 'fade-out' : ''}`}>
       <div id="container" style={{ display: loading ? 'flex' : 'none' }}>
         <div className='background'>
-          <img src={imageBG} alt="Background Star Wars" />
+          <img src={imageBGDektop} alt="Background Star Wars" className='desktop-only'/>
+          <img src={imageBGMobile} alt="Background Star Wars" className='mobile-only'/>          
         </div>
         <div className='lightsaber-wrapper'>
           <div id="lightsaber">

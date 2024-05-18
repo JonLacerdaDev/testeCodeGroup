@@ -3,6 +3,7 @@ import './Parallax.css';
 
 import { ParallaxContainer, ParallaxLayer } from './ParallaxStyle'; 
 
+import imageParallaxBgMobile from '../../assets/bg-mobile.png';
 import imageParallax01 from '../../assets/imageParallax01.png';
 import imageParallax02 from '../../assets/imageParallax02.png';
 import imageParallax03 from '../../assets/imageParallax03.png';
@@ -18,47 +19,50 @@ import imageParallax12 from '../../assets/imageParallax12.png';
 import imageParallax13 from '../../assets/imageParallax13.png';
 
 const Parallax = () => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      const layers = document.querySelectorAll('.parallax-layer');
-      const initialX = (window.innerWidth / 2) - e.pageX;
-      const initialY = (window.innerHeight / 2) - e.pageY;
-  
-      layers.forEach((layer, index) => {
+    const handleDeviceOrientation = (e: DeviceOrientationEvent) => {
+      if (!containerRef.current) return;
+
+      const layers = containerRef.current.querySelectorAll('.parallax-layer');
+      const initialX = e.gamma || 0;
+      const initialY = e.beta || 0;
+
+      layers.forEach((layer) => {
         const depth = layer.getAttribute('data-depth');
-        const movementX = -(initialX * depth) / 40;
-        const movementY = -(initialY * depth) / 40;
+        if (!depth) return;
+
+        const movementX = -(initialX * parseFloat(depth)) / 40;
+        const movementY = -(initialY * parseFloat(depth)) / 40;
   
-        layer.style.transform = `translate(${movementX}px, ${movementY}px)`;
+        (layer as HTMLElement).style.transform = `translate(${movementX}px, ${movementY}px)`;
       });
     };
   
-    document.body.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('deviceorientation', handleDeviceOrientation);
   
     return () => {
-      document.body.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('deviceorientation', handleDeviceOrientation);
     };
   }, []);
-  
 
   return (
     <ParallaxContainer ref={containerRef}>
+      <ParallaxLayer src={imageParallaxBgMobile} alt="Star Wars Background" />
       <ParallaxLayer src={imageParallax01} alt="Star Wars Background" />
-      <ParallaxLayer src={imageParallax02} alt="Star Wars Background"  className="parallax-layer" data-depth="0.1" />
-      <ParallaxLayer src={imageParallax03} alt="Star Wars Background"  className="parallax-layer" data-depth="0.2" />
-      <ParallaxLayer src={imageParallax04} alt="Star Wars Background"  className="parallax-layer" data-depth="0.3" />
-      <ParallaxLayer src={imageParallax05} alt="Star Wars Background"  className="parallax-layer" data-depth="0.4" />
-      <ParallaxLayer src={imageParallax06} alt="Star Wars Background"  className="parallax-layer" data-depth="0.5" />
-      <ParallaxLayer src={imageParallax07} alt="Star Wars Background"  className="parallax-layer" data-depth="0.6" />
-      <ParallaxLayer src={imageParallax08} alt="Star Wars Background"  className="parallax-layer" data-depth="0.7" />
-      <ParallaxLayer src={imageParallax09} alt="Star Wars Background"  className="parallax-layer" data-depth="0.8" />
-      <ParallaxLayer src={imageParallax10} alt="Star Wars Background"  className="parallax-layer" data-depth="0.9" />
-      <ParallaxLayer src={imageParallax11} alt="Star Wars Background"  className="parallax-layer" data-depth="1.0" />
-      <ParallaxLayer src={imageParallax12} alt="Star Wars Background"  className="parallax-layer" data-depth="1.1" />
-      <ParallaxLayer src={imageParallax13} alt="Star Wars Background"  className="parallax-layer" data-depth="1.2" />
-
+      <ParallaxLayer src={imageParallax02} alt="Star Wars Background" className="parallax-layer" data-depth="0.1" />
+      <ParallaxLayer src={imageParallax03} alt="Star Wars Background" className="parallax-layer" data-depth="0.2" />
+      <ParallaxLayer src={imageParallax04} alt="Star Wars Background" className="parallax-layer" data-depth="0.3" />
+      <ParallaxLayer src={imageParallax05} alt="Star Wars Background" className="parallax-layer" data-depth="0.4" />
+      <ParallaxLayer src={imageParallax06} alt="Star Wars Background" className="parallax-layer" data-depth="0.5" />
+      <ParallaxLayer src={imageParallax07} alt="Star Wars Background" className="parallax-layer" data-depth="0.6" />
+      <ParallaxLayer src={imageParallax08} alt="Star Wars Background" className="parallax-layer" data-depth="0.7" />
+      <ParallaxLayer src={imageParallax09} alt="Star Wars Background" className="parallax-layer" data-depth="0.8" />
+      <ParallaxLayer src={imageParallax10} alt="Star Wars Background" className="parallax-layer" data-depth="0.9" />
+      <ParallaxLayer src={imageParallax11} alt="Star Wars Background" className="parallax-layer" data-depth="1.0" />
+      <ParallaxLayer src={imageParallax12} alt="Star Wars Background" className="parallax-layer" data-depth="1.1" />
+      <ParallaxLayer src={imageParallax13} alt="Star Wars Background" className="parallax-layer" data-depth="1.2" />
     </ParallaxContainer>
   );
 };

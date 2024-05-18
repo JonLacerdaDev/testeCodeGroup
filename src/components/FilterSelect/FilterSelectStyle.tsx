@@ -9,10 +9,10 @@ export const FilterContainer = styled.div`
     background: transparent;
     padding-left: 20px;
     border: none;
-    font-size: 16px;
+    font-size: 14px;
     color: #fff; 
     cursor: pointer;
-    width: 100px;
+    width: 88px;
     display: flex;
     background-image: url(${IcoArrow});
     background-repeat: no-repeat;
@@ -21,6 +21,10 @@ export const FilterContainer = styled.div`
     white-space: nowrap;                  
     overflow: hidden; 
     text-overflow: ellipsis;
+
+    @media only screen and (min-width: 768px) {
+      width: 100px;
+    }
 
     option {
       color: #000;

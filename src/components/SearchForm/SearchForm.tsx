@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import ImageForm from '../../assets/image-form.png';
+import ImageFormMobile from '../../assets/image-form-mobile.png';
 import ImageSpaceship from '../../assets/spaceship.png';
 import IcoFilter from '../../assets/ico-filter.png';
 import FilterSelect from '../../components/FilterSelect/FilterSelect';
@@ -40,7 +41,6 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!searchTerm && !selectedPlanet) {
-      console.log(toast)
       toast.error('Please type something in the field or select a planet', {
         position: "top-right",
         autoClose: 5000,
@@ -104,7 +104,8 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
   return (
     <FormContainer onSubmit={handleSearchSubmit}>
       <ImageContainer>
-        <img src={ImageForm} alt="Image Form" />
+        <img src={ImageForm} alt="Image Form" className='desktop-only'/>
+        <img src={ImageFormMobile} alt="Image Form" className='mobile-only'/>
         <img src={ImageSpaceship} alt="Spaceship" className="parallax-layer spaceship" data-depth="1.3" />
       </ImageContainer>
       <FormContent>

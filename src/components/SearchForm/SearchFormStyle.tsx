@@ -154,6 +154,7 @@ export const FiltersTitle = styled.div`
   color: #fff;
   align-items: center;
   gap: 10px;
+  font-size: 14px;
 
   img {
     max-width: 15px;

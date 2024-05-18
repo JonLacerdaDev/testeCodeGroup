@@ -16,8 +16,35 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .spaceship {
-    left: -70px;
-    bottom: -155px;
+    left: auto;
+    bottom: -80px;
+    right: -100px;
+
+    @media only screen and (min-width: 768px) {
+      left: -70px;
+      bottom: -155px;
+      right: auto;
+    }
+  }
+
+  .mobile-only {
+    display: none !important; 
+  }
+
+  @media only screen and (max-width: 767px) {
+    .mobile-only {
+      display: block !important; 
+    }
+  }
+
+  .desktop-only {
+    display: none !important; 
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .desktop-only {
+      display: block !important; 
+    }
   }
 `;
 
