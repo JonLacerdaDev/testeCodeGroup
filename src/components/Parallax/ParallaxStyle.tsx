@@ -11,11 +11,11 @@ export const ParallaxContainer = styled.div`
 `;
 
 export const ParallaxLayer = styled.img`
-  position: absolute;
+position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  left: 0;
-  top: 0;
-  pointer-events: none;
-  transform-style: preserve-3d;
+  object-fit: cover;
+  transition: transform 0.1s ease-out;
 `;

@@ -1,6 +1,5 @@
 import { useRef, useEffect } from 'react';
 import './Parallax.css'; 
-
 import { ParallaxContainer, ParallaxLayer } from './ParallaxStyle'; 
 
 import imageParallaxBgMobile from '../../assets/bg-mobile.png';
@@ -22,28 +21,36 @@ const Parallax = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleDeviceOrientation = (e: DeviceOrientationEvent) => {
-      if (!containerRef.current) return;
-
-      const layers = containerRef.current.querySelectorAll('.parallax-layer');
-      const initialX = e.gamma || 0;
-      const initialY = e.beta || 0;
-
+    const handleOrientation = (x: number, y: number) => {
+      // Seleciona todas as camadas de parallax na página
+      const layers = document.querySelectorAll('.parallax-layer');
       layers.forEach((layer) => {
         const depth = layer.getAttribute('data-depth');
         if (!depth) return;
 
-        const movementX = -(initialX * parseFloat(depth)) / 40;
-        const movementY = -(initialY * parseFloat(depth)) / 40;
+        const movementX = -(x * parseFloat(depth)) / 40;
+        const movementY = -(y * parseFloat(depth)) / 40;
   
         (layer as HTMLElement).style.transform = `translate(${movementX}px, ${movementY}px)`;
       });
     };
-  
+
+    const handleDeviceOrientation = (e: DeviceOrientationEvent) => {
+      handleOrientation(e.gamma || 0, e.beta || 0);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth) * 2 - 1;
+      const y = (e.clientY / window.innerHeight) * 2 - 1;
+      handleOrientation(x * 45, y * 45);
+    };
+
     window.addEventListener('deviceorientation', handleDeviceOrientation);
+    window.addEventListener('mousemove', handleMouseMove);
   
     return () => {
       window.removeEventListener('deviceorientation', handleDeviceOrientation);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
