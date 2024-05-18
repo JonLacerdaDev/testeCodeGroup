@@ -11,7 +11,7 @@ const LightsaberLoader = () => {
     if (progress === 100) {
       setTimeout(() => {
         setShouldHide(true);
-      }, 3000); // 3 segundos de delay
+      }, 3000); 
     }
   }, [progress]);
 
