@@ -20,7 +20,7 @@ export const usePeople = () => useContext(PeopleContext);
 
 export const PeopleProvider = ({ children }: PeopleProviderProps) => {
   const [people, setPeople] = useState<Person[]>([]);
-  const { updateProgress, setPeopleLoadingComplete, loading } = useLoading();
+  const { setPeopleLoadingComplete, loading } = useLoading();
 
   const fetchAllPeople = async () => {
     let allPeople: Person[] = [];

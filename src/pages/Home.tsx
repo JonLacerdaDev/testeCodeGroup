@@ -6,7 +6,7 @@ const Home = () => {
   const { planets } = usePlanets();
   const navigate = useNavigate();
 
-  const handleSearchSubmit = (searchTerm:any) => {
+  const handleSearchSubmit = (searchTerm:string) => {
     const selectedPlanet = planets.find((planet) => planet.name.toLowerCase() === searchTerm.toLowerCase());
     const searchUrl = selectedPlanet ? `/planet/${selectedPlanet.name}` : `/search/${searchTerm}`;
     navigate(searchUrl);

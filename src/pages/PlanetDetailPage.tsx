@@ -12,6 +12,17 @@ import icoPeople from '../assets/ico-people.png';
 import icoFilms from '../assets/ico-films.png';
 import '../style/PlanetDetail.css';
 
+type Resident = {
+  url: string;
+  name: string;
+};
+
+interface Planet {
+  name: string;
+  residents: Resident[];
+  films: string[];
+}
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -44,7 +55,7 @@ const PlanetName = styled.h2`
   font-size: 18px;
   font-weight: 900;
   cursor: pointer;
-  text-transform: Uppercase;
+  text-transform: uppercase;
 `;
 
 const Section = styled.div`
@@ -147,27 +158,39 @@ const PlanetWrapper = styled.div`
 `;
 
 const PlanetDetailPage = () => {
-  const { urlPlanetName } = useParams<{ urlPlanetName: string }>();
+  const { urlPlanetName = '' } = useParams<{ urlPlanetName?: string }>();
   const { planets } = usePlanets();
   const films = useFilms();
   const { people } = usePeople();
-  const [planet, setPlanet] = useState<any>(null);
+  const [planet, setPlanet] = useState<Planet | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [newPlanetName, setNewPlanetName] = useState<string>('');
 
   useEffect(() => {
-    const matchedPlanet = planets.find((planet: any) => {
+    const matchedPlanet = planets.find((planet) => {
       return planet.name.toLowerCase().includes(urlPlanetName?.toLowerCase());
     });
 
     if (matchedPlanet) {
-      setPlanet(matchedPlanet);
+      setPlanet((prevPlanet: Planet | null) => {
+        if (!prevPlanet) return null;
+        
+        return {
+          ...prevPlanet,
+          name: newPlanetName,
+          residents: prevPlanet.residents || [],
+          films: prevPlanet.films || [],
+        };
+      });
     }
   }, [urlPlanetName, planets]);
 
   const handleNameChange = () => {
     if (newPlanetName.trim() !== '') {
-      setPlanet({ ...planet, name: newPlanetName });
+      setPlanet((prevPlanet) => ({
+        ...prevPlanet!,
+        name: newPlanetName
+      }));
       setIsEditing(false);
     }
   };
@@ -175,8 +198,6 @@ const PlanetDetailPage = () => {
   const handleTitleClick = () => {
     setIsEditing(true);
   };
-
-  
 
   return (
     <Container>
@@ -207,36 +228,36 @@ const PlanetDetailPage = () => {
                 <IconText>
                   <img src={icoTemp} alt="Climate Icon" />
                   <SectionTitle>Climate:</SectionTitle>
-                  <p>{'tatooine'}</p>
+                  <p>{planet?.name}</p>
                 </IconText>
               </Section>
               <Section>
                 <IconText>
                   <img src={icoTerrain} alt="Terrain Icon" />
                   <SectionTitle>Terrain:</SectionTitle>
-                  <p>{'tatooine'}</p>
+                  <p>{planet?.name}</p>
                 </IconText>
               </Section>
               <Section>
                 <IconText>
                   <img src={icoPopulation} alt="Population Icon" />
                   <SectionTitle>Population:</SectionTitle>
-                  <p>{'tatooine'}</p>
+                  <p>{planet?.name}</p>
                 </IconText>
               </Section>
             </PlanetWrapper>
           </ListInfos>
         </HeaderItem>
         
-        {planet?.residents.length > 0 && (
+        {planet && planet.residents && planet.residents.length > 0 && (
           <SectionWithColor>
             <IconText>
               <img src={icoPeople} alt="Residents Icon" />
               <SectionTitle>Residents:</SectionTitle>
             </IconText>
             <List>
-              {planet?.residents.map((resident: string, index: number) => (
-                <ListItem key={index}>{people.find((p: any) => p.url === resident)?.name || 'Unknown'},</ListItem>
+              {planet.residents.map((resident: Resident, index: number) => (
+                <ListItem key={index}>{people.find((p) => p.url === resident.url)?.name || 'Unknown'},</ListItem>
               ))}
             </List>
           </SectionWithColor>
@@ -245,11 +266,11 @@ const PlanetDetailPage = () => {
         <SectionWithColor>
           <IconText>
             <img src={icoFilms} alt="Films Icon" />
-            <SectionTitle>Films: {'(5)'}</SectionTitle>
+            <SectionTitle>Films: {`(${planet?.films.length || 0})`}</SectionTitle>
           </IconText>
           <List>
             {planet?.films.map((film: string, index: number) => (
-              <ListItem key={index}>{films.find((f: any) => f.url === film)?.title || 'Unknown'},</ListItem>
+              <ListItem key={index}>{films.find((f) => f.url === film)?.title || 'Unknown'},</ListItem>
             ))}
           </List>
         </SectionWithColor>
@@ -259,3 +280,4 @@ const PlanetDetailPage = () => {
 };
 
 export default PlanetDetailPage;
+
