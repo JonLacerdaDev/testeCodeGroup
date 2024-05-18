@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ParallaxContainer = styled.div`
   position: fixed;
   width: 100vw;
-  height: 100vh ;
+  height: 100vh;
   overflow: hidden;
   top: 0;
   left: 0;
@@ -14,4 +14,8 @@ export const ParallaxLayer = styled.img`
   position: absolute;
   width: 100%;
   height: 100%;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  transform-style: preserve-3d;
 `;

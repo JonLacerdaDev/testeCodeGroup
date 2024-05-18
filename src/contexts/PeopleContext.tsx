@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { useLoading } from './LoadingContext';
 
 type Person = {
   name: string;
@@ -17,8 +18,9 @@ const PeopleContext = createContext<PeopleContextType>({ people: [] });
 
 export const usePeople = () => useContext(PeopleContext);
 
-export const PeopleProvider = ({ children }:PeopleProviderProps) => {
+export const PeopleProvider = ({ children }: PeopleProviderProps) => {
   const [people, setPeople] = useState<Person[]>([]);
+  const { updateProgress, setPeopleLoadingComplete, loading } = useLoading();
 
   const fetchAllPeople = async () => {
     let allPeople: Person[] = [];
@@ -32,11 +34,14 @@ export const PeopleProvider = ({ children }:PeopleProviderProps) => {
     }
 
     setPeople(allPeople);
+    setPeopleLoadingComplete();
   };
 
   useEffect(() => {
-    fetchAllPeople();
-  }, []);
+    if (!loading) {
+      fetchAllPeople();
+    }
+  }, [loading]); 
 
   return (
     <PeopleContext.Provider value={{ people }}>

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { getSWAPIEndpoint, SWAPIRoutes } from '../utils/swapi';
+import { useLoading } from './LoadingContext';
 
 interface Planet {
   name: string;
@@ -26,6 +27,8 @@ interface PlanetsProviderProps {
 
 export const PlanetsProvider: React.FC<PlanetsProviderProps> = ({ children }) => {
   const [planets, setPlanets] = useState<Planet[]>([]);
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const { updateProgress, setPlanetsLoadingComplete } = useLoading();
 
   useEffect(() => {
     const fetchAllPlanets = async () => {
@@ -38,18 +41,24 @@ export const PlanetsProvider: React.FC<PlanetsProviderProps> = ({ children }) =>
           const data = await response.json();
           allPlanets.push(...data.results);
           nextUrl = data.next;
+
+          if (allPlanets.length === data.results.length) {
+            setTotalCount(data.count);
+          }
+
+          updateProgress(data.count * 100);
         }
 
         setPlanets(allPlanets);
+        setPlanetsLoadingComplete();
       } catch (error) {
         console.error('Error fetching all planets:', error);
       }
     };
 
     fetchAllPlanets();
-  }, []);
+  }, [totalCount, updateProgress, setPlanetsLoadingComplete]);
 
-  
   return (
     <PlanetsContext.Provider value={{ planets }}>
       {children}
