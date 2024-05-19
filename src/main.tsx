@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { PlanetsProvider } from './contexts/PlanetsContext';
 import { FilmsProvider } from './contexts/FilmesContext';
@@ -9,7 +9,7 @@ import GlobalStyle from './GlobalStyle';
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <LoadingProvider>
       <LightsaberLoader />
       <PlanetsProvider>
@@ -21,5 +21,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </FilmsProvider>
       </PlanetsProvider>
     </LoadingProvider>
-  // </React.StrictMode>,
+  </React.StrictMode>,
 );
