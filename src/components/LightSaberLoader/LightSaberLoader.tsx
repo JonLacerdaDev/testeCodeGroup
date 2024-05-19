@@ -39,7 +39,7 @@ const LightsaberLoader = () => {
             </div>
           </div>
           <p id="loading">
-            Loading <span>{progress}</span>%
+            Loading 
           </p>
         </div>
       </div>

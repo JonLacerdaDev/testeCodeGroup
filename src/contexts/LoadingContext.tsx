@@ -6,9 +6,6 @@ interface LoadingContextProps {
   startLoading: () => void;
   updateProgress: (value: number) => void;
   finishLoading: () => void;
-  setPlanetsLoadingComplete: () => void;
-  setPeopleLoadingComplete: () => void;
-  setFilmsLoadingComplete: () => void;
 }
 
 const LoadingContext = createContext<LoadingContextProps | undefined>(undefined);
@@ -16,9 +13,6 @@ const LoadingContext = createContext<LoadingContextProps | undefined>(undefined)
 export const LoadingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [planetsComplete, setPlanetsComplete] = useState(false);
-  const [peopleComplete, setPeopleComplete] = useState(false);
-  const [filmsComplete, setFilmsComplete] = useState(false);
 
   const startLoading = () => {
     setLoading(true);
@@ -34,38 +28,8 @@ export const LoadingProvider: React.FC<{ children: ReactNode }> = ({ children })
     setLoading(false);
   };
 
-  const setPlanetsLoadingComplete = () => {
-    setPlanetsComplete(true);
-    if (peopleComplete && filmsComplete) {
-      finishLoading();
-    }
-  };
-
-  const setPeopleLoadingComplete = () => {
-    setPeopleComplete(true);
-    if (planetsComplete && filmsComplete) {
-      finishLoading();
-    }
-  };
-
-  const setFilmsLoadingComplete = () => {
-    setFilmsComplete(true);
-    if (planetsComplete && peopleComplete) {
-      finishLoading();
-    }
-  };
-
   return (
-    <LoadingContext.Provider value={{
-      loading,
-      progress,
-      startLoading,
-      updateProgress,
-      finishLoading,
-      setPlanetsLoadingComplete,
-      setPeopleLoadingComplete,
-      setFilmsLoadingComplete,
-    }}>
+    <LoadingContext.Provider value={{ loading, progress, startLoading, updateProgress, finishLoading }}>
       {children}
     </LoadingContext.Provider>
   );

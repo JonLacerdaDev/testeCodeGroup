@@ -18,6 +18,18 @@ export const FooterContainer = styled.footer`
 export const Text = styled.p`
   margin: 0;
   display: none;
+  position: relative;
+
+  &::after {
+    content: '';
+    width: 1px;
+    height: 44px;
+    background-color: #000;
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
   @media screen and (min-width: 768px) {
     display: block;

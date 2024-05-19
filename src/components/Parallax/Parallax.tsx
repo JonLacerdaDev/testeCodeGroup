@@ -22,14 +22,13 @@ const Parallax = () => {
 
   useEffect(() => {
     const handleOrientation = (x: number, y: number) => {
-      // Seleciona todas as camadas de parallax na página
       const layers = document.querySelectorAll('.parallax-layer');
       layers.forEach((layer) => {
         const depth = layer.getAttribute('data-depth');
         if (!depth) return;
 
-        const movementX = -(x * parseFloat(depth)) / 40;
-        const movementY = -(y * parseFloat(depth)) / 40;
+        const movementX = -(x * parseFloat(depth)) / 10;
+        const movementY = -(y * parseFloat(depth)) / 10;
   
         (layer as HTMLElement).style.transform = `translate(${movementX}px, ${movementY}px)`;
       });

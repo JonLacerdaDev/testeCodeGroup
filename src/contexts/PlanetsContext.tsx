@@ -28,7 +28,7 @@ interface PlanetsProviderProps {
 export const PlanetsProvider: React.FC<PlanetsProviderProps> = ({ children }) => {
   const [planets, setPlanets] = useState<Planet[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
-  const { updateProgress, setPlanetsLoadingComplete } = useLoading();
+  const { updateProgress } = useLoading();
 
   useEffect(() => {
     const fetchAllPlanets = async () => {
@@ -46,18 +46,17 @@ export const PlanetsProvider: React.FC<PlanetsProviderProps> = ({ children }) =>
             setTotalCount(data.count);
           }
 
-          updateProgress(data.count * 100);
+          updateProgress(data.count);
         }
 
         setPlanets(allPlanets);
-        setPlanetsLoadingComplete();
       } catch (error) {
         console.error('Error fetching all planets:', error);
       }
     };
 
     fetchAllPlanets();
-  }, [totalCount, updateProgress, setPlanetsLoadingComplete]);
+  }, [totalCount, updateProgress]);
 
   return (
     <PlanetsContext.Provider value={{ planets }}>

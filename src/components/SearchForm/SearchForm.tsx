@@ -4,7 +4,7 @@ import ImageFormMobile from '../../assets/image-form-mobile.png';
 import ImageSpaceship from '../../assets/spaceship.png';
 import IcoFilter from '../../assets/ico-filter.png';
 import FilterSelect from '../../components/FilterSelect/FilterSelect';
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { 
@@ -59,6 +59,7 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setSearchTerm(value);
+    setSelectedPlanet(''); 
 
     const mostSimilarPlanet = planets
       .filter((planet) => planet.name.toLowerCase().startsWith(value.toLowerCase()))
@@ -82,10 +83,11 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
     setSelectedPopulation(population);
   };
 
-  const filteredPlanets = planets.filter((planet) =>
-    planet.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (selectedPopulation === '' || (selectedPopulation === 'unknown' && planet.population === 'unknown') || (selectedPopulation !== 'unknown' && planet.population !== 'unknown'))
-  );
+  const filteredPlanets = planets.filter((planet) => {
+    const matchesName = planet.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesPopulation = selectedPopulation === '' || (selectedPopulation === 'unknown' ? planet.population === 'unknown' : planet.population !== 'unknown' && planet.population === selectedPopulation);
+    return matchesName && matchesPopulation;
+  });
 
   const populationOptions = [
     ...new Set(planets.map(planet => planet.population === 'unknown' ? 'unknown' : planet.population).filter(population => population !== 'unknown')),
@@ -100,6 +102,12 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
       setSuggestion(null);
     }
   }, [searchTerm]);
+
+  useEffect(() => {
+    if (selectedPlanet) {
+      setSearchTerm(selectedPlanet);
+    }
+  }, [selectedPlanet]);
 
   return (
     <FormContainer onSubmit={handleSearchSubmit}>
@@ -123,13 +131,13 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
             autoComplete="off"
           />
           {suggestion && (
-            <>
+            <div className='desktop-only'>
               <SuggestionContent>
                 <span>{searchTerm}</span>
                 <span style={{ opacity: 0.5 }}>{suggestion.substring(searchTerm.length)}</span>
               </SuggestionContent>
               <TabSuggestion />
-            </>
+            </div>
           )}
         </SuggestionContainer>
         <SearchButton type="submit">
@@ -143,7 +151,10 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
           <FiltersWrapper>
             <FilterSelect
               value={selectedPlanet}
-              onChange={(e) => setSelectedPlanet(e.target.value)}
+              onChange={(e) => {
+                setSelectedPlanet(e.target.value);
+                setSearchTerm(e.target.value); 
+              }}
               options={filteredPlanets.map((planet) => ({ label: planet.name, value: planet.name }))}
               placeholder="Name"
             />
@@ -152,6 +163,7 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
               onChange={handlePopulationChange}
               options={populationOptions}
               placeholder="Population"
+              onClick={() => setSearchTerm('')}
             />
           </FiltersWrapper>
         </FiltersContainer>

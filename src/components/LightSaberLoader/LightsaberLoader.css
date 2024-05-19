@@ -24,10 +24,10 @@
 #container,
 .background,
 #loading-page {
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
+  width: calc(100vw + 10%);
+  height: calc(100vh + 10%);
+  top: -15px;
+  left: -15px;
 }
 
 #container {
@@ -39,7 +39,7 @@
 
 .lightsaber-wrapper {
   position: relative;
-  transform: translateX(-150%);
+  transform: translateX(-350%);
   z-index: 6;
   left: 0;
 }

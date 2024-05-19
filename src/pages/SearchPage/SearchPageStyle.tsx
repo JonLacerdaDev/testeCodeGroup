@@ -64,3 +64,19 @@ export const SearchTerm = styled.h2`
     color: #de1212;
   }
 `;
+
+export const SearchTermNotFound = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 50px;
+  max-width: 400px;
+  text-align: center;
+  margin: 40px 20px 20px;
+  margin: 50px auto;
+  font-size: 18px;
+  font-weight: 900;
+`;

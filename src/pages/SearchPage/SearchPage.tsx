@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { usePlanets } from '../../contexts/PlanetsContext';
 import PlanetImage, { hasValidImage } from '../../components/PlanetImage/PlanetImage';
-import { PlanetContainer, SearchTerm, Item } from './SearchPageStyle'
+import { PlanetContainer, SearchTerm, Item, SearchTermNotFound} from './SearchPageStyle'
 
 const SearchPage = () => {
   const { term } = useParams<{ term: string }>();
@@ -37,17 +37,23 @@ const SearchPage = () => {
       <SearchTerm>
         You searched for: <span>{term}</span>
       </SearchTerm>
-      <PlanetContainer>
-        {searchResults.map((result, index) => (
-          <Link to={result.link} key={index}>
-            <Item>
-              <PlanetImage planetName={result.name} />
-              <span>Planet:</span>
-              <p>{result.name}</p>
-            </Item>
-          </Link>
-        ))}
-      </PlanetContainer>
+      {searchResults.length > 0 ? 
+        <PlanetContainer>
+          {searchResults.map((result, index) => (
+            <Link to={result.link} key={index}>
+              <Item>
+                <PlanetImage planetName={result.name} />
+                <span>Planet:</span>
+                <p>{result.name}</p>
+              </Item>
+            </Link>
+          ))}
+        </PlanetContainer>
+      :
+        <SearchTermNotFound>
+          😔 Term not found 😔
+        </SearchTermNotFound>
+      }
     </>
   );
 };
