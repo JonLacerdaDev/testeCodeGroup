@@ -39,9 +39,15 @@
 
 .lightsaber-wrapper {
   position: relative;
-  transform: translateX(-350%);
+  transform: translateX(-150%);
   z-index: 6;
   left: 0;
+}
+
+@media (max-width: 768px) {
+  .lightsaber-wrapper {
+    transform: translateX(-100%) scale(0.8)
+  }
 }
 
 .background {
@@ -350,7 +356,10 @@ p#loading {
 
 p#loading span {
   font-size: 1.5rem;
-  font-size: 24px;
+  font-size: 24px;  
+  display: inline-block;
+  width: 45px;
+  text-align: center;
 }
 
 .no-js p#loading span:before {

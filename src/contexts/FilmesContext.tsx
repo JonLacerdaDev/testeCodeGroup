@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 interface Film {
   title: string;
@@ -22,7 +23,17 @@ export const FilmsProvider = ({ children }:FilmsProviderProps) => {
       const data = await response.json();
       setFilms(data.results);
     } catch (error) {
-      console.error('Erro ao buscar os filmes:', error);
+      console.error('Error fetching films:', error);
+      toast.error('Error fetching films - See console for more datails', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark"
+      });
     }
   };
 
@@ -32,6 +43,7 @@ export const FilmsProvider = ({ children }:FilmsProviderProps) => {
 
   return (
     <FilmsContext.Provider value={films}>
+      <ToastContainer/>
       {children}
     </FilmsContext.Provider>
   );

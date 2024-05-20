@@ -20,7 +20,7 @@ export const LoadingProvider: React.FC<{ children: ReactNode }> = ({ children })
   };
 
   const updateProgress = (value: number) => {
-    setProgress((prev) => Math.min(prev + value, 100));
+    setProgress(value);
   };
 
   const finishLoading = () => {

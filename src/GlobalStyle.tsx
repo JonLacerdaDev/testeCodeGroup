@@ -15,6 +15,11 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  #root {
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
   .spaceship {
     left: auto;
     bottom: -80px;

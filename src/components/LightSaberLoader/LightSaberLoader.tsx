@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useLoading } from '../../contexts/LoadingContext';
 import './LightsaberLoader.css';
-import imageBGDektop from '../../assets/imageParallax01.png';
-import imageBGMobile from '../../assets/bg-mobile.png';
+import imageBGDektop from '../../assets/ImageBGDesktop.png';
+import imageBGMobile from '../../assets/ImageBGmobile.png';
 
 const LightsaberLoader = () => {
   const { loading, progress } = useLoading();
@@ -39,7 +39,7 @@ const LightsaberLoader = () => {
             </div>
           </div>
           <p id="loading">
-            Loading 
+            Loading <span>{progress.toFixed(0)}</span>%
           </p>
         </div>
       </div>
