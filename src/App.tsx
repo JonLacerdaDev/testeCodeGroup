@@ -7,9 +7,12 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import NotFound from './pages/NotFound/NotFound';
 
+import { SpeedInsights } from "@vercel/speed-insights/react"
+
 const App = () => {
   return (
     <>
+      <SpeedInsights />
       <Parallax/>
       <Header/>
       <Router>
