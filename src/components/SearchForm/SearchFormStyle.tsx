@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-
-import icoSearch from '../../assets/ico-search.png'
-import icoTab from '../../assets/ico-tab.png'
+import icoSearch from '../../assets/ico-search.png';
 
 export const FormContainer = styled.form`
   display: flex;

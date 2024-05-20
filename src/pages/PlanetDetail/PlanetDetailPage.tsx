@@ -9,7 +9,6 @@ import icoTerrain from '../../assets/ico-terrain.png';
 import icoPopulation from '../../assets/ico-population.png';
 import icoPeople from '../../assets/ico-people.png';
 import icoFilms from '../../assets/ico-films.png';
-import { Link } from 'react-router-dom';
 import '../../style/PlanetDetail.css';
 import BackButton from '../../components/BackButton/BackButton'
 
@@ -30,8 +29,7 @@ import {
 import {
     Card, 
     Container,
-    ContainerWithText,
-    LinkWrapper } from '../../style/CommonStyles.tsx';
+    ContainerWithText} from '../../style/CommonStyles.tsx';
 
 
 interface Planet {
