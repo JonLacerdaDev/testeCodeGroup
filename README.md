@@ -1,30 +1,51 @@
-# React + TypeScript + Vite
+# Procurando Planetas do Universo Star Wars
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é um projeto web desenvolvido para buscar informações sobre os planetas do universo Star Wars. Utiliza tecnologias como Vite, React, TypeScript, Styled Components e React Router.
 
-Currently, two official plugins are available:
+## Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Você pode acessar a demonstração do projeto [aqui](https://teste-code-group.vercel.app/).
 
-## Expanding the ESLint configuration
+## Instalação
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. **Clone o repositório:**
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+git clone https://github.com/JonLacerdaDev/testeCodeGroup.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. **Instale as dependências:**
+
+```bash
+cd testeCodeGroup
+npm install ou yarn
+```
+
+## Uso
+
+Para iniciar o servidor de desenvolvimento, utilize o comando:
+
+```bash
+  npm run dev ou yarn dev
+```
+
+## 🛠️ Tecnologias Utilizadas
+
+- 💨 **Vite**: Utilizado como construtor de aplicativos web para um desenvolvimento rápido e eficiente. 
+- ⚛️ **React**: Biblioteca JavaScript para criação de interfaces de usuário. 
+- 🔍 **TypeScript**: Superconjunto tipado de JavaScript para detecção de erros em tempo de desenvolvimento. 
+- 💅 **Styled Components**: Utilizado para estilização ao nível dos componentes em React. 
+- 🛣️ **React Router**: Utilizado para adicionar roteamento a aplicativos React. 
+
+
+
+## 🚀 Funcionalidades
+
+- **Listagem de Planetas:** Veja uma lista de planetas do universo Star Wars.
+- **Detalhes do Planeta:** Clique em um planeta para ver detalhes sobre clima, terreno, população, residentes e filmes.
+- **sugestão de Busca:** Busque mais rápido com a sugestão ao digitar no campo de busca.
+- **Pesquisa por Nome:** Filtre a lista de planetas pelo nome.
+- **Estilização Responsiva:** Layouts adaptáveis para dispositivos móveis e desktops.
+
+
+   
