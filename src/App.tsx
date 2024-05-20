@@ -8,8 +8,10 @@ import Footer from './components/Footer/Footer';
 import NotFound from './pages/NotFound/NotFound';
 
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import { inject } from '@vercel/analytics';
 
 const App = () => {
+  inject();
   return (
     <>
       <SpeedInsights />
