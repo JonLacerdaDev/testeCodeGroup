@@ -60,7 +60,7 @@ export const SearchButton = styled.button`
   background-color: #DE1212;
   background-image: url(${icoSearch});
   background-repeat: no-repeat;
-  background-position: left 35% center;
+  background-position: left 25% center;
   font-weight: 900;
   font-size: 16px;
   border-radius: 5px;
@@ -70,6 +70,10 @@ export const SearchButton = styled.button`
   border: none;
   cursor: pointer;
   transition: all 0.2s;
+
+  @media (min-width: 768px) {
+    background-position: left 35% center;
+  }
   
   &:hover {
     background-color: #9d0000;

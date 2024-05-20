@@ -9,9 +9,9 @@ import icoTerrain from '../../assets/ico-terrain.png';
 import icoPopulation from '../../assets/ico-population.png';
 import icoPeople from '../../assets/ico-people.png';
 import icoFilms from '../../assets/ico-films.png';
-import '../../style/PlanetDetail.css';
-import BackButton from '../../components/BackButton/BackButton'
+import BackButton from '../../components/BackButton/BackButton';
 
+import '../../style/PlanetDetail.css';
 import {  
   HeaderItem, 
   IconText, 
