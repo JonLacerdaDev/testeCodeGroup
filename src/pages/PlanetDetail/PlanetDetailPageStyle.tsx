@@ -41,7 +41,7 @@ export const SectionTitle = styled.p`
 
 export const IconText = styled.div`
   display: flex;
-  align-items: center;
+  align-items: start;
   gap: 8px;
 
   img {

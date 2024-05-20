@@ -128,15 +128,17 @@ export const SuggestionContent = ({ children, ...props }:SuggestionContentProps)
 };
 
 export const TabSuggestion = styled.span`
-  background-image: url(${icoTab});
   width: 31px;
   position: absolute;
-  right: 4px;
+  right: -3px;
   top: 2px;
   height: 16px;
   background-size: cover;
   background-repeat: no-repeat;
   z-index: 1;
+  font-weight: 400;
+  font-size: 9px;
+  color: #000;
 `;
 
 export const FiltersContainer = styled.div`

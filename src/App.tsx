@@ -14,16 +14,16 @@ const App = () => {
     <>
       <SpeedInsights />
       <Parallax/>
-      <Header/>
       <Router>
+        <Header/>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/search/:term" element={<SearchPage/>} />
           <Route path="/planet/:urlPlanetName" element={<PlanetDetailPage/>} />
           <Route path='*' element={<NotFound />} />
         </Routes>
+        <Footer/>
       </Router>
-      <Footer/>
     </>
   );
 };

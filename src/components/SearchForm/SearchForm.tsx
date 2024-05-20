@@ -136,7 +136,9 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
                 <span>{searchTerm}</span>
                 <span style={{ opacity: 0.5 }}>{suggestion.substring(searchTerm.length)}</span>
               </SuggestionContent>
-              <TabSuggestion />
+              <TabSuggestion>
+                Press TAB
+              </TabSuggestion>
             </div>
           )}
         </SuggestionContainer>

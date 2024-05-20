@@ -11,6 +11,7 @@ import icoPeople from '../../assets/ico-people.png';
 import icoFilms from '../../assets/ico-films.png';
 import { Link } from 'react-router-dom';
 import '../../style/PlanetDetail.css';
+import BackButton from '../../components/BackButton/BackButton'
 
 import {  
   HeaderItem, 
@@ -161,9 +162,7 @@ const PlanetDetailPage = () => {
             </List>
           </SectionWithColor>
         </Card>
-        <LinkWrapper>
-          <Link to={'/'}> &lt; Back</Link>
-        </LinkWrapper>
+        <BackButton />
       </Container>
     </>
   ) : (
@@ -172,9 +171,7 @@ const PlanetDetailPage = () => {
         <Card>
         🪐 Planeta não encontrado 🪐
         </Card>
-        <LinkWrapper>
-          <Link to={'/'}> &lt; Back</Link>
-        </LinkWrapper>
+        <BackButton />
       </ContainerWithText>
     </>
   );

@@ -4,6 +4,7 @@ import { usePlanets } from '../../contexts/PlanetsContext';
 import PlanetImage, { hasValidImage } from '../../components/PlanetImage/PlanetImage';
 import { PlanetContainer, SearchTerm, Item} from './SearchPageStyle'
 import { Card, ContainerWithText } from '../../style/CommonStyles.tsx';
+import BackButton from '../../components/BackButton/BackButton.tsx';
 
 interface searchPropd  {
   hasImage: boolean;
@@ -61,6 +62,7 @@ const SearchPage = () => {
           <Card>
             😔 Term not found 😔
           </Card>
+          <BackButton />
         </ContainerWithText>
       }
     </>

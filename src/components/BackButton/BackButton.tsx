@@ -4,14 +4,17 @@ import IcoArrow from '../../assets/ico-select.png';
 import styled from 'styled-components';
 
 const BackButtonImage = styled.img`
-  
+  transform: rotate(90deg);
+  position: relative;
+  top: -3px;
+  left: -10px;
 `;
 
 const BackButton = () => {
   return (
     <LinkWrapper>
       <BackButtonImage src={IcoArrow} alt="Back" />
-      <Link to={'/'}> &lt; Back</Link>
+      <Link to={'/'} style={{fontWeight: 900}}>Back</Link>
     </LinkWrapper>
   )
 };

@@ -12,7 +12,7 @@ export const FilterContainer = styled.div`
     font-size: 14px;
     color: #fff; 
     cursor: pointer;
-    width: 88px;
+    width: 80px;
     display: flex;
     background-image: url(${IcoArrow});
     background-repeat: no-repeat;
@@ -21,6 +21,10 @@ export const FilterContainer = styled.div`
     white-space: nowrap;                  
     overflow: hidden; 
     text-overflow: ellipsis;
+
+    @media only screen and (min-width: 435px) {
+      width: 88px;
+    }
 
     @media only screen and (min-width: 768px) {
       width: 100px;

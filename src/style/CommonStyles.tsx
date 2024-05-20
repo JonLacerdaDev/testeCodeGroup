@@ -32,7 +32,7 @@ export const Card = styled.div`
   width: 90%;
   max-width: 400px;
   text-align: center;
-  margin: 40px 20px 20px;
+  margin: 40px auto;
 
   @media (min-width: 768px) {
     max-width: 800px;
@@ -47,6 +47,7 @@ export const LinkWrapper = styled.div`
   text-align: center;
   margin: 0 auto;
   text-align: right;
+  margin-bottom: 25px;
 
   @media (min-width: 768px) {
     max-width: 800px;
