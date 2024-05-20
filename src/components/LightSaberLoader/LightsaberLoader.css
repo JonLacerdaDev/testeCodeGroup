@@ -13,6 +13,8 @@
   position: fixed;
   z-index: 5;
   transition: opacity 1s ease, transform 1s ease;
+  background: rgb(7,13,34);
+  background: linear-gradient(180deg, rgba(7,13,34,1) 0%, rgba(53,91,145,1) 55%, rgba(150,111,56,1) 79%, rgba(27,25,34,1) 100%);
 }
 
 #loading-page.fade-out {
