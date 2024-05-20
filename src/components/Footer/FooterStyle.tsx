@@ -31,4 +31,9 @@ export const Divider = styled.div`
   width: 1px;
   height: 44px;
   background-color: #000;
+  display: none;
+
+  @media screen and (min-width: 768px) {
+    display: block;
+  }
 `

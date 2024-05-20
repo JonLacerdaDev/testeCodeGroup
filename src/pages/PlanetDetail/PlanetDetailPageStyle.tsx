@@ -43,6 +43,7 @@ export const IconText = styled.div`
   display: flex;
   align-items: start;
   gap: 8px;
+  flex-wrap: wrap;
 
   img {
     margin-right: 10px;
