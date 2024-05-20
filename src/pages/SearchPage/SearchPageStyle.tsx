@@ -30,7 +30,8 @@ export const PlanetContainer = styled.div`
 
 export const Item = styled.div`
   img {
-    max-width: 150px;
+    width: 150px;
+    height: 150px;
   }
 
   span {
