@@ -48,4 +48,6 @@ Para iniciar o servidor de desenvolvimento, utilize o comando:
 - **Estilização Responsiva:** Layouts adaptáveis para dispositivos móveis e desktops.
 
 
+## Créditos
+Este projeto utilizou parte do código de animação do sabre de luz do CodePen de [Sam Zabala](https://codepen.io/samzabala/pen/EmvmLg).
    
