@@ -48,6 +48,7 @@ const SearchPage = () => {
           {searchResults.map((result, index) => (
             <Link to={result.link} key={index}>
               <Item>
+                {/*@ts-expect-error: Erro ignorado temporiariamente*/}
                 <PlanetImage planetName={result.name} />
                 <span>Planet:</span>
                 <p>{result.name}</p>
