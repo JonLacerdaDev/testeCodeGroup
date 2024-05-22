@@ -1,3 +1,4 @@
+import React, { forwardRef } from 'react';
 import { FilterContainer } from './FilterSelectStyle';
 
 interface Option {
@@ -13,10 +14,11 @@ interface Props {
   onClick?: (event: React.MouseEvent<HTMLSelectElement>) => void;
 }
 
-const FilterSelect = ({ value, onChange, options, placeholder, onClick }: Props) => {
+const FilterSelect = forwardRef<HTMLSelectElement, Props>((props, ref) => {
+  const { value, onChange, options, placeholder, onClick } = props;
   return (
     <FilterContainer>
-      <select value={value} onChange={onChange} onClick={onClick}>
+      <select ref={ref} value={value} onChange={onChange} onClick={onClick}>
         <option value="">{placeholder}</option>
         {options.map((option, index) => (
           <option key={index} value={option.value}>
@@ -26,6 +28,6 @@ const FilterSelect = ({ value, onChange, options, placeholder, onClick }: Props)
       </select>
     </FilterContainer>
   );
-};
+});
 
 export default FilterSelect;

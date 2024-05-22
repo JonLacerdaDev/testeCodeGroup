@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
 import ImageForm from '../../assets/image-form.png';
 import ImageFormMobile from '../../assets/image-form-mobile.png';
 import ImageSpaceship from '../../assets/spaceship.png';
@@ -27,20 +28,26 @@ interface Planet {
   population: string;
 }
 
+interface FormInputs {
+  searchTerm: string;
+  selectedPlanet: string;
+  selectedPopulation: string;
+}
+
 interface Props {
   planets: Planet[];
   onSubmit: (searchTerm: string) => void;
 }
 
 const SearchForm = ({ planets, onSubmit }: Props) => {
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [selectedPlanet, setSelectedPlanet] = useState<string>('');
-  const [selectedPopulation, setSelectedPopulation] = useState<string>('');
+  const { register, handleSubmit, setValue, watch } = useForm<FormInputs>();
+  const searchTerm = watch('searchTerm');
+  const selectedPlanet = watch('selectedPlanet');
+  const selectedPopulation = watch('selectedPopulation');
   const [suggestion, setSuggestion] = useState<string | null>(null);
 
-  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!searchTerm && !selectedPlanet) {
+  const handleSearchSubmit = handleSubmit((data: FormInputs) => {
+    if (!data.searchTerm && !data.selectedPlanet) {
       toast.error('Please type something in the field or select a planet', {
         position: "top-right",
         autoClose: 5000,
@@ -52,14 +59,14 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
         theme: "dark"
       });
     } else {
-      onSubmit(searchTerm || selectedPlanet);
+      onSubmit(data.searchTerm || data.selectedPlanet);
     }
-  };
+  });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setSearchTerm(value);
-    setSelectedPlanet(''); 
+    setValue('searchTerm', value);
+    setValue('selectedPlanet', ''); 
 
     const mostSimilarPlanet = planets
       .filter((planet) => planet.name.toLowerCase().startsWith(value.toLowerCase()))
@@ -73,29 +80,33 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Tab' && suggestion) {
       event.preventDefault();
-      setSearchTerm(suggestion);
+      setValue('searchTerm', suggestion);
       setSuggestion(null);
     }
   };
 
   const handlePopulationChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const population = event.target.value;
-    setSelectedPopulation(population);
+    setValue('selectedPopulation', population);
   };
 
-  const filteredPlanets = planets.filter((planet) => {
-    const matchesName = planet.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesPopulation = selectedPopulation === '' || (selectedPopulation === 'unknown' ? planet.population === 'unknown' : planet.population !== 'unknown' && planet.population === selectedPopulation);
-    return matchesName && matchesPopulation;
-  });
+  const filteredPlanets = useMemo(() => {
+    return planets.filter((planet) => {
+      const matchesName = planet.name.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesPopulation = selectedPopulation === '' || (selectedPopulation === 'unknown' ? planet.population === 'unknown' : planet.population !== 'unknown' && planet.population === selectedPopulation);
+      return matchesName && matchesPopulation;
+    });
+  }, [planets, searchTerm, selectedPopulation]);
 
-  const populationOptions = [
-    ...new Set(planets.map(planet => planet.population === 'unknown' ? 'unknown' : planet.population).filter(population => population !== 'unknown')),
-    'unknown'
-  ].map(population => ({
-    label: population === 'unknown' ? 'Unknown' : Number(population).toLocaleString(),
-    value: population
-  }));
+  const populationOptions = useMemo(() => {
+    return [
+      ...new Set(planets.map(planet => planet.population === 'unknown' ? 'unknown' : planet.population).filter(population => population !== 'unknown')),
+      'unknown'
+    ].map(population => ({
+      label: population === 'unknown' ? 'Unknown' : Number(population).toLocaleString(),
+      value: population
+    }));
+  }, [planets]);
 
   useEffect(() => {
     if (!searchTerm) {
@@ -105,7 +116,7 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
 
   useEffect(() => {
     if (selectedPlanet) {
-      setSearchTerm(selectedPlanet);
+      setValue('searchTerm', selectedPlanet);
     }
   }, [selectedPlanet]);
 
@@ -124,7 +135,7 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
         <SuggestionContainer>
           <InputSearch
             type="text"
-            value={searchTerm}
+            {...register('searchTerm')}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             placeholder="Enter the name in the planet"
@@ -152,20 +163,22 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
           </FiltersTitle>
           <FiltersWrapper>
             <FilterSelect
+              {...register('selectedPlanet')}
               value={selectedPlanet}
               onChange={(e) => {
-                setSelectedPlanet(e.target.value);
-                setSearchTerm(e.target.value); 
+                setValue('selectedPlanet', e.target.value);
+                setValue('searchTerm', e.target.value); 
               }}
               options={filteredPlanets.map((planet) => ({ label: planet.name, value: planet.name }))}
               placeholder="Name"
             />
             <FilterSelect
+              {...register('selectedPopulation')}
               value={selectedPopulation}
               onChange={handlePopulationChange}
               options={populationOptions}
               placeholder="Population"
-              onClick={() => setSearchTerm('')}
+              onClick={() => setValue('searchTerm', '')}
             />
           </FiltersWrapper>
         </FiltersContainer>
