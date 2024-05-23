@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { getSWAPIEndpoint, SWAPIRoutes } from '../utils/swapi';
 import { useLoading } from './LoadingContext';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Planet, PlanetsContextType, PlanetsProviderProps } from '../types/Planets';
 
 const PlanetsContext = createContext<PlanetsContextType>({
@@ -10,7 +10,7 @@ const PlanetsContext = createContext<PlanetsContextType>({
 
 export const usePlanets = () => useContext(PlanetsContext);
 
-export const PlanetsProvider = ({ children }:PlanetsProviderProps) => {
+export const PlanetsProvider = ({ children }: PlanetsProviderProps) => {
   const [planets, setPlanets] = useState<Planet[]>([]);
   const [totalCount, setTotalCount] = useState<number | null>(null);
   const { updateProgress } = useLoading();
@@ -57,7 +57,7 @@ export const PlanetsProvider = ({ children }:PlanetsProviderProps) => {
           }
 
           if (!window.location.pathname.includes('/planet/')) {
-            const totalDivider = totalCount || 10
+            const totalDivider = totalCount || 10;
             updateProgress((numberPage / totalDivider) * 100);
           }
         }
@@ -90,7 +90,6 @@ export const PlanetsProvider = ({ children }:PlanetsProviderProps) => {
 
   return (
     <PlanetsContext.Provider value={{ planets }}>
-      <ToastContainer />
       {children}
     </PlanetsContext.Provider>
   );

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useLoading } from './LoadingContext';
 
 import { Person, PeopleContextType, PeopleProviderProps } from '../types/People';
@@ -62,7 +62,6 @@ export const PeopleProvider = ({ children }: PeopleProviderProps) => {
 
   return (
     <PeopleContext.Provider value={{ people }}>
-      <ToastContainer/>
       {children}
     </PeopleContext.Provider>
   );

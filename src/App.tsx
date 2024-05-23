@@ -6,6 +6,7 @@ import Parallax from './components/Parallax/Parallax';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import NotFound from './pages/NotFound/NotFound';
+import { ToastContainer } from 'react-toastify';
 
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import { inject } from '@vercel/analytics';
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/planet/:urlPlanetName" element={<PlanetDetailPage/>} />
           <Route path='*' element={<NotFound />} />
         </Routes>
+        <ToastContainer />
         <Footer/>
       </Router>
     </>

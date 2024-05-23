@@ -67,6 +67,14 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 9px;
     border: 8px none #000000;
   }
+
+  .Toastify > div {
+    display: none !important;
+  }
+
+  .Toastify > div:first-child {
+    display: block !important;
+  }
 `;
 
 export default GlobalStyle;

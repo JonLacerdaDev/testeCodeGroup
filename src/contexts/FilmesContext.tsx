@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Film, FilmsProviderProps } from '../types/Films'
 
 const FilmsContext = createContext<Film[]>([]);
@@ -35,7 +35,6 @@ export const FilmsProvider = ({ children }:FilmsProviderProps) => {
 
   return (
     <FilmsContext.Provider value={films}>
-      <ToastContainer/>
       {children}
     </FilmsContext.Provider>
   );

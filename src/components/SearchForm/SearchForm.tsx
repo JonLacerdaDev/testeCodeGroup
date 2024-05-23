@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import FilterSelect from '../../components/FilterSelect/FilterSelect';
 
@@ -104,10 +104,18 @@ const SearchForm = ({ planets, onSubmit }: SearchFormProps) => {
   }, [searchTerm]);
 
   useEffect(() => {
+    console.log(planets);
+  }, [planets]);
+
+  useEffect(() => {
     if (selectedPlanet) {
       setValue('searchTerm', selectedPlanet);
     }
   }, [selectedPlanet, setValue]);
+
+  useEffect(() => {
+    console.log(filteredPlanets);
+  }, [filteredPlanets]);
 
   return planets && (
     <FormContainer onSubmit={handleSearchSubmit}>
@@ -158,7 +166,11 @@ const SearchForm = ({ planets, onSubmit }: SearchFormProps) => {
                 setValue('selectedPlanet', e.target.value);
                 setValue('searchTerm', e.target.value); 
               }}
-              options={filteredPlanets.map((planet) => ({ label: planet.name, value: planet.name }))}
+              options={
+                filteredPlanets.length === 0
+                ? planets.map((planet) => ({ label: planet.name, value: planet.name }))
+                : filteredPlanets.map((planet) => ({ label: planet.name, value: planet.name }))
+              }
               placeholder="Name"
             />
             <FilterSelect
@@ -172,7 +184,6 @@ const SearchForm = ({ planets, onSubmit }: SearchFormProps) => {
           </FiltersWrapper>
         </FiltersContainer>
       </FormContent>
-      <ToastContainer />
     </FormContainer>
   );
 };
