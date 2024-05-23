@@ -5,12 +5,8 @@ import PlanetImage, { hasValidImage } from '../../components/PlanetImage/PlanetI
 import { PlanetContainer, SearchTerm, Item} from './SearchPageStyle'
 import { Card, ContainerWithText } from '../../style/CommonStyles.tsx';
 import BackButton from '../../components/BackButton/BackButton.tsx';
+import { searchPropd } from '../../types/SearchPage'
 
-interface searchPropd  {
-  hasImage: boolean;
-  link: string;
-  name: string;
-}
 
 const SearchPage = () => {
   const { term } = useParams<{ term: string }>();

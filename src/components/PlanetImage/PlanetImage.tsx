@@ -1,22 +1,5 @@
-import React from 'react';
 import planetNotFoundImage from '../../assets/planet-image-not-found.png';
-
-type PlanetName =
-  | 'tatooine'
-  | 'naboo'
-  | 'mustafar'
-  | 'kashyyyk'
-  | 'hoth'
-  | 'endor'
-  | 'dagobah'
-  | 'coruscant'
-  | 'bespin'
-  | 'alderaan';
-
-interface PlanetImageProps {
-  planetName: PlanetName;
-  className?: string;
-}
+import { PlanetName, PlanetImageProps } from '../../types/Planets';
 
 const planetImages: Record<PlanetName, string> = {
   tatooine: 'https://cryptospro.com.br/planetas/planeta_0000_tatooine.png',
@@ -31,7 +14,7 @@ const planetImages: Record<PlanetName, string> = {
   alderaan: 'https://cryptospro.com.br/planetas/planeta_0009_alderaan.png',
 };
 
-const PlanetImage: React.FC<PlanetImageProps> = ({ planetName, className }) => {
+const PlanetImage = ({ planetName, className }:PlanetImageProps) => {
   const key = planetName.toLowerCase() as PlanetName;
   const planetImage = planetImages[key] || planetNotFoundImage;
   return <img src={planetImage} alt={planetName} className={className} />;

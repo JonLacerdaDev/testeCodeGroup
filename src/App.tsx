@@ -1,5 +1,5 @@
 import { BrowserRouter as Router,  Route, Routes} from 'react-router-dom';
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 import SearchPage from './pages/SearchPage/SearchPage';
 import PlanetDetailPage from './pages/PlanetDetail/PlanetDetailPage';
 import Parallax from './components/Parallax/Parallax';

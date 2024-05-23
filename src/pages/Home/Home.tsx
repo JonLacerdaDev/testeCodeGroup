@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { usePlanets } from '../contexts/PlanetsContext';
-import SearchForm from '../components/SearchForm/SearchForm';
+import { usePlanets } from '../../contexts/PlanetsContext';
+import SearchForm from '../../components/SearchForm/SearchForm';
 
 const Home = () => {
   const { planets } = usePlanets();

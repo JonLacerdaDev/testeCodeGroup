@@ -1,14 +1,8 @@
-import { LinkWrapper } from '../../style/CommonStyles.tsx';
 import { Link } from 'react-router-dom';
 import IcoArrow from '../../assets/ico-select.png';
-import styled from 'styled-components';
 
-const BackButtonImage = styled.img`
-  transform: rotate(90deg);
-  position: relative;
-  top: -3px;
-  left: -10px;
-`;
+import { BackButtonImage } from './BackButtonStyle'
+import { LinkWrapper } from '../../style/CommonStyles';
 
 const BackButton = () => {
   return (

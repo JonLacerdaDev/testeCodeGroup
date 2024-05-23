@@ -1,20 +1,8 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { FilterContainer } from './FilterSelectStyle';
+import { FilterProps } from '../../types/FilterSelect';
 
-interface Option {
-  label: string;
-  value: string;
-}
-
-interface Props {
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  options: Option[];
-  placeholder: string;
-  onClick?: (event: React.MouseEvent<HTMLSelectElement>) => void;
-}
-
-const FilterSelect = forwardRef<HTMLSelectElement, Props>((props, ref) => {
+const FilterSelect = forwardRef<HTMLSelectElement, FilterProps>((props, ref) => {
   const { value, onChange, options, placeholder, onClick } = props;
   return (
     <FilterContainer>

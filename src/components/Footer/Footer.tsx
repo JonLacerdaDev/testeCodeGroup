@@ -1,5 +1,4 @@
 import logoFooter from '../../assets/logo-footer.png';
-
 import { 
   FooterContainer, 
   Text, 

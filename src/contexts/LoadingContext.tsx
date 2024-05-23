@@ -1,22 +1,16 @@
-import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { LoadingContextProps } from '../types/Loading';
 
-interface LoadingContextProps {
-  loading: boolean;
-  progress: number;
-  startLoading: () => void;
-  updateProgress: (value: number) => void;
-  finishLoading: () => void;
-}
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoadingContext = createContext<LoadingContextProps | undefined>(undefined);
 
-export const LoadingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
-  const [fiftyPercentWarningShown, setFiftyPercentWarningShown] = useState(false);
-  const [eightyPercentWarningShown, setEightyPercentWarningShown] = useState(false);
+export const LoadingProvider = ({ children }: { children: ReactNode }) => {
+  const [ loading, setLoading ] = useState(true);
+  const [ progress, setProgress ] = useState(0);
+  const [ fiftyPercentWarningShown, setFiftyPercentWarningShown ] = useState(false);
+  const [ eightyPercentWarningShown, setEightyPercentWarningShown ] = useState(false);
 
   const startLoading = () => {
     setLoading(true);
@@ -26,7 +20,7 @@ export const LoadingProvider: React.FC<{ children: ReactNode }> = ({ children })
 
     setTimeout(() => {
       if (progress < 50 && !fiftyPercentWarningShown) {
-        toast.error('Calma lá, jovem padawan! Estamos processando a força. Isso pode levar alguns segundos...', {
+        toast.error('Easy there, young padawan! We are suing by force. This may take a few seconds...', {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -42,7 +36,7 @@ export const LoadingProvider: React.FC<{ children: ReactNode }> = ({ children })
 
     setTimeout(() => {
       if (progress < 80 && !eightyPercentWarningShown) {
-        toast.error('Ops! Parece que a força falhou desta vez. Por favor, recarregue a página e vamos tentar de novo!', {
+        toast.error("Oops! It seems that the force has failed this time. Please reload the page and let's try again!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

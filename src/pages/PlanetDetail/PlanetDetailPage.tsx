@@ -10,6 +10,7 @@ import icoPopulation from '../../assets/ico-population.png';
 import icoPeople from '../../assets/ico-people.png';
 import icoFilms from '../../assets/ico-films.png';
 import BackButton from '../../components/BackButton/BackButton';
+import { Planet } from '../../types/Planets.ts';
 
 import '../../style/PlanetDetail.css';
 import {  
@@ -30,16 +31,6 @@ import {
     Card, 
     Container,
     ContainerWithText} from '../../style/CommonStyles.tsx';
-
-
-interface Planet {
-  name: string;
-  climate: string;
-  terrain: string;
-  population: string;
-  residents: string[];
-  films: string[];
-}
 
 const PlanetDetailPage = () => {
   const { urlPlanetName = '' } = useParams<{ urlPlanetName?: string }>();

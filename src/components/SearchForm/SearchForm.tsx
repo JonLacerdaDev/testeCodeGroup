@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
+import FilterSelect from '../../components/FilterSelect/FilterSelect';
+
 import ImageForm from '../../assets/image-form.png';
 import ImageFormMobile from '../../assets/image-form-mobile.png';
 import ImageSpaceship from '../../assets/spaceship.png';
 import IcoFilter from '../../assets/ico-filter.png';
-import FilterSelect from '../../components/FilterSelect/FilterSelect';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+import { FormInputs, SearchFormProps } from '../../types/SearchForm';
 
 import { 
   FormContainer, 
@@ -22,24 +24,10 @@ import {
   FiltersWrapper,
   InputSearch
 } from './SearchFormStyle';
+import 'react-toastify/dist/ReactToastify.css';
 
-interface Planet {
-  name: string;
-  population: string;
-}
 
-interface FormInputs {
-  searchTerm: string;
-  selectedPlanet: string;
-  selectedPopulation: string;
-}
-
-interface Props {
-  planets: Planet[];
-  onSubmit: (searchTerm: string) => void;
-}
-
-const SearchForm = ({ planets, onSubmit }: Props) => {
+const SearchForm = ({ planets, onSubmit }: SearchFormProps) => {
   const { register, handleSubmit, setValue, watch } = useForm<FormInputs>();
   const searchTerm = watch('searchTerm');
   const selectedPlanet = watch('selectedPlanet');
@@ -92,8 +80,9 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
 
   const filteredPlanets = useMemo(() => {
     return planets.filter((planet) => {
-      const matchesName = planet.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesPopulation = selectedPopulation === '' || (selectedPopulation === 'unknown' ? planet.population === 'unknown' : planet.population !== 'unknown' && planet.population === selectedPopulation);
+      const matchesName = searchTerm ? planet.name.toLowerCase().includes(searchTerm.toLowerCase()) : true;
+      const matchesPopulation = selectedPopulation === '' || 
+        (selectedPopulation === 'unknown' ? planet.population === 'unknown' : planet.population !== 'unknown' && planet.population === selectedPopulation);
       return matchesName && matchesPopulation;
     });
   }, [planets, searchTerm, selectedPopulation]);
@@ -118,9 +107,9 @@ const SearchForm = ({ planets, onSubmit }: Props) => {
     if (selectedPlanet) {
       setValue('searchTerm', selectedPlanet);
     }
-  }, [selectedPlanet]);
+  }, [selectedPlanet, setValue]);
 
-  return (
+  return planets && (
     <FormContainer onSubmit={handleSearchSubmit}>
       <ImageContainer>
         <img src={ImageForm} alt="Image Form" className='desktop-only'/>

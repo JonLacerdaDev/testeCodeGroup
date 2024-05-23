@@ -1,19 +1,8 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { useLoading } from './LoadingContext';
 import { ToastContainer, toast } from 'react-toastify';
+import { useLoading } from './LoadingContext';
 
-type Person = {
-  name: string;
-  url: string;
-};
-
-type PeopleContextType = {
-  people: Person[];
-};
-
-interface PeopleProviderProps {
-  children: React.ReactNode;
-}
+import { Person, PeopleContextType, PeopleProviderProps } from '../types/People';
 
 const PeopleContext = createContext<PeopleContextType>({ people: [] });
 

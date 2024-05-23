@@ -1,18 +1,10 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-
-interface Film {
-  title: string;
-  url: string;
-}
+import { Film, FilmsProviderProps } from '../types/Films'
 
 const FilmsContext = createContext<Film[]>([]);
 
 export const useFilms = () => useContext(FilmsContext);
-
-interface FilmsProviderProps {
-  children: React.ReactNode;
-}
 
 export const FilmsProvider = ({ children }:FilmsProviderProps) => {
   const [films, setFilms] = useState<Film[]>([]);

@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useLoading } from '../../contexts/LoadingContext';
-import './LightsaberLoader.css';
+
 import imageBGDektop from '../../assets/ImageBGDesktop.png';
 import imageBGMobile from '../../assets/ImageBGmobile.png';
+
+import './LightsaberLoader.css';
 
 const LightsaberLoader = () => {
   const { loading, progress } = useLoading();
