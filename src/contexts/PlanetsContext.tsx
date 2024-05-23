@@ -15,23 +15,28 @@ export const PlanetsProvider = ({ children }:PlanetsProviderProps) => {
   const [totalCount, setTotalCount] = useState<number | null>(null);
   const { updateProgress } = useLoading();
   const dataFetchedRef = useRef(false);
-  // @ts-ignore: Unreachable code error
-  const loadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const toastShownRef = useRef(false); 
+  const toastShownRef = useRef(false);
 
   useEffect(() => {
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
 
-    const fetchAllPlanets = async () => {
-      loadingTimeoutRef.current = setTimeout(() => {
-        if (!toastShownRef.current) {
-          toast.error('Tá demorando muito para carregar, infelizmente a API de dados está mais lenta do que gostaríamos', {
+    const fetchData = async () => {
+      let timeoutHandled = false;
+
+      const timeout = setTimeout(() => {
+        if (!toastShownRef.current && !timeoutHandled) {
+          toast.error("It's taking a long time to load, unfortunately the data API is slower than we would like", {
             position: "top-right",
             autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
             theme: "dark"
           });
-          toastShownRef.current = true; 
+          toastShownRef.current = true;
         }
       }, 10000);
 
@@ -52,9 +57,8 @@ export const PlanetsProvider = ({ children }:PlanetsProviderProps) => {
           }
 
           if (!window.location.pathname.includes('/planet/')) {
-            if (totalCount) {
-              updateProgress((numberPage / totalCount) * 100);
-            }
+            const totalDivider = totalCount || 10
+            updateProgress((numberPage / totalDivider) * 100);
           }
         }
 
@@ -75,13 +79,13 @@ export const PlanetsProvider = ({ children }:PlanetsProviderProps) => {
           theme: "dark"
         });
       } finally {
-        if (loadingTimeoutRef.current) {
-          clearTimeout(loadingTimeoutRef.current);
-        }
+        timeoutHandled = true;
+        clearTimeout(timeout);
+        toastShownRef.current = false;
       }
     };
 
-    fetchAllPlanets();
+    fetchData();
   }, [totalCount, updateProgress]);
 
   return (
